@@ -13,7 +13,7 @@ export const useCreateUser = () => {
     const response = await fetch(`${VITE_BASE_URL}/api/my/user/createUser`, {
       method: "POST",
       headers: {
-        Authorzation: `Bearer ${accessToken}`,
+        authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
