@@ -8,7 +8,7 @@ import { z } from "zod";
 
 const formSchema = z.object({
   //Su dung fuction object trong thu vien Zod de tao ra mot doi tuong voi cac thanh phan email, name...
-  email: z.string().min(1, "Email is required"),
+  email: z.string().optional(),
   name: z.string().min(1, "Name is required"),
   addressLine1: z.string().min(1, "Address Line1 is required"),
   city: z.string().min(1, "City is required"),
@@ -44,7 +44,6 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
               <FormControl>
                 <Input {...field} disabled className="bg-white" />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
