@@ -2,7 +2,9 @@ import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { User } from "@/type";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -20,14 +22,21 @@ type UserFormData = z.infer<typeof formSchema>; //lay du lieu ra tu mot luoc do
 type Props = {
   onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
+  currentUser: User;
 };
 
-const UserProfileForm = ({ onSave, isLoading }: Props) => {
+const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
   const form = useForm<UserFormData>({
     //Su dung useForm de truyen vao mot genaric type
-    resolver: zodResolver(formSchema), // kieemr tra tinh hop le cua du lieu trong form
+    resolver: zodResolver(formSchema),
+    // kieemr tra tinh hop le cua du lieu trong form
+    defaultValues: currentUser,
   });
   //Dong ben duoi render toi mot Component Form trong thu vien Shadcn ui voi props truyen vao la form
+
+  useEffect(() => {
+    form.reset(currentUser);
+  }, [currentUser, form]);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSave)} className=" space-y-4 bg-gray-50 rounded-lg md:p-10">
